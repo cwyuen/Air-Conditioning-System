@@ -1,6 +1,5 @@
 package com.ermax.aircond.common.service.impl;
 
-import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,18 +10,15 @@ import com.ermax.aircond.common.domain.UserDetail;
 import com.ermax.aircond.common.service.UserService;
 
 @Service("userService")
-public class UserServiceImpl implements UserService,Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserServiceImpl implements UserService {
+	
 	@Autowired
 	private UserDetailDao userDetailDao;	
 
 	@Override
 	@Transactional(readOnly=true)
 	public UserDetail login(String username, String password) {
-		UserDetail userDetail = userDetailDao.getUserDetailByUsername(username);
+		UserDetail userDetail = userDetailDao.findAcUserByUsername(username);
 		if(userDetail != null){
 			if(password.equals(userDetail.getPassword())){
 				return userDetail;
