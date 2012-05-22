@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<title>#{msg['ui.system_title']}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<h:outputStylesheet name="style.css" library="css" />
+</h:head>
+
+<h:body class="body">
+
+	<f:view locale="#{localeBean.language}">
+
+		<table class="wrap">
+
+			<TR>
+				<td>
+					<table class="header">
+						<tr>
+							<TD width="800px">
+								<h1>
+									<a class="title" href="#">#{msg['ui.system_title']}</a>
+								</h1> <BR />
+								<h2 class="title_desc">#{msg['ui.system_title_desc']}</h2>
+							</TD>
+
+							<TD width="224px" align="right" valign="bottom"><ui:include src="/template/language.xhtml" /></TD>
+						</tr>
+					</table>
+				</td>
+			</TR>
+
+			<TR>
+				<TD>
+					<table class="menu">
+						<tr>
+							<td><ui:include src="/template/login.xhtml" /></td>
+						</tr>
+					</table>
+				</TD>
+			</TR>
+
+		</table>
+
+	</f:view>
+</h:body>
+</html>
