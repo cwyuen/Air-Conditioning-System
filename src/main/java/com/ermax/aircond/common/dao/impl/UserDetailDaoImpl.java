@@ -25,7 +25,7 @@ public class UserDetailDaoImpl implements UserDetailDao, Serializable {
 	@SuppressWarnings("unchecked")
 	public UserDetail findAcUserByUsername(String username) {
 		
-		List<UserDetail> list = sessionFactory.getCurrentSession().createQuery("FROM ACUSER u WHERE u.username = ?").setParameter(0, username).list();
+		List<UserDetail> list = sessionFactory.getCurrentSession().createQuery("FROM UserDetail u WHERE u.username = ?").setParameter(0, username).list();
 
 		if (list.size() > 0) {
 			return list.get(0);

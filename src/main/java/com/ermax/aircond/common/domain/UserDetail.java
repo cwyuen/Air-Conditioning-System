@@ -34,7 +34,7 @@ public class UserDetail implements java.io.Serializable {
 	private String username;
 	@Column(nullable = false)
 	private String password;	
-	@Type(type = "true_false")
+	@Type(type = "yes_no")
 	private boolean active = false;	
 	private String email;
 	private String phone;

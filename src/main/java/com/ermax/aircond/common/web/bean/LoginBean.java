@@ -10,6 +10,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,6 +29,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.DefaultSavedRequest;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 @Scope("session")
@@ -54,14 +59,21 @@ public class LoginBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage()));
 			return null;
 		}
-
-		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-
-		DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) context.getSessionMap().get(SAVED_REQUEST);
-
-		context.redirect(defaultSavedRequest.getRedirectUrl());
-
-		FacesContext.getCurrentInstance().responseComplete();
+				
+		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();  
+	    HttpServletResponse  response = (HttpServletResponse )FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+	    HttpSession session = request.getSession(false);
+	    
+	    if(session != null){
+	    	ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+	    	SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);  
+	    	if(savedRequest != null){  
+	    		context.redirect(savedRequest.getRedirectUrl());
+	    	}
+	    }
+	    
+	    FacesContext.getCurrentInstance().responseComplete();  
+	    //return null;    
 
 		return "pages/main";
 			
