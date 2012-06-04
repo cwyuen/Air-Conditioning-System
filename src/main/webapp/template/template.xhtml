@@ -29,7 +29,8 @@
 								<h2 class="title_desc">#{msg['ui.system_title_desc']}</h2>
 							</TD>
 
-							<TD width="224px" align="right" valign="bottom"><ui:include src="/template/language.xhtml" /></TD>
+							<TD width="224px" align="right" valign="bottom"><ui:include
+									src="/template/language.xhtml" /></TD>
 						</tr>
 					</table>
 				</td>
@@ -45,6 +46,16 @@
 				</TD>
 			</TR>
 
+			<TR>
+				<TD>
+					<table class="body">
+						<tr>
+							<td><ui:insert name="body" /></td>
+						</tr>
+					</table>
+				</TD>
+			</TR>
+					
 		</table>
 
 	</f:view>

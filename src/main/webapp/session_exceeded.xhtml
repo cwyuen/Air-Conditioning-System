@@ -9,8 +9,9 @@
 <body>
 	<ui:composition template="/template/template.xhtml">
 		
-		<h:outputText value="#{msg['ui.error_session_exceeded']}" />
-		
+		<ui:define name="body">
+			<h:outputText value="#{msg['ui.error_session_exceeded']}" />
+		</ui:define>
 	</ui:composition>
 </body>
 </html>

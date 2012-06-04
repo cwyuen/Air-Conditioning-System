@@ -32,10 +32,10 @@ public class SecurityUserDetailServiceImpl implements UserDetailsService {
 		}
 
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		/*for (UserGroup userGroup : user.getUserGroups()) {
+		for (UserGroup userGroup : user.getUserGroups()) {
 			authorities.add(new SimpleGrantedAuthority(userGroup.getGroupName()));
 		}
-		*/
+		
 
 		User userDetails = new User(username, user.getPassword(), user.isActive(), true, true, true, authorities);
 

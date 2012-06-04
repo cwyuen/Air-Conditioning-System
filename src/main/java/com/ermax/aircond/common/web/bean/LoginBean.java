@@ -73,10 +73,7 @@ public class LoginBean implements Serializable {
 	    }
 	    
 	    FacesContext.getCurrentInstance().responseComplete();  
-	    //return null;    
-
-		return "pages/main";
-			
+	    return null;    					
 	}
 	
 	public String logout() throws IOException {

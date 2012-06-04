@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<body>
+	<ui:composition template="/template/template.xhtml">
+		
+		<ui:define name="body">
+		
+			<rich:panel header="Building">				
+			
+				<h:form>
+					<rich:dataTable value="#{buildingMaintainBean.buildingList}" var="building" id="buildingTable">
+						
+						<rich:column id="building_name" sortBy="#{building.buildingName}" sortOrder="#{buildingMaintainBean.nameOrder}">
+							<f:facet name="header">
+								<a4j:commandLink value="Building Name" render="buildingTable" action="#{buildingMaintainBean.sortByName}" />								
+							</f:facet>
+							#{building.buildingName}
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">
+								<a4j:commandLink value="Status" render="buildingTable" action="#{buildingMaintainBean.sortByStatus}" />								
+							</f:facet>
+							#{building.status}
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">
+								<a4j:commandLink value="Type" render="buildingTable" action="#{buildingMaintainBean.sortByType}" />
+							</f:facet>
+							#{building.buildingType}
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">
+								<a4j:commandLink value="Description" render="buildingTable" action="#{buildingMaintainBean.sortByDesc}" />
+							</f:facet>
+							#{building.description}
+						</rich:column>
+						
+						
+					</rich:dataTable>
+				
+				</h:form>
+				
+			</rich:panel>
+			
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

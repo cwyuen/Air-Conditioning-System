@@ -1,7 +1,6 @@
 package com.ermax.aircond.common.domain;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "USERGROUP" ,uniqueConstraints = {@UniqueConstraint(columnNames = "DESCRIPTION")})
-public class UserGroup implements java.io.Serializable{
+public class UserGroup extends CommonDomain implements java.io.Serializable{
 		
 	private static final long serialVersionUID = 1L;
 	
