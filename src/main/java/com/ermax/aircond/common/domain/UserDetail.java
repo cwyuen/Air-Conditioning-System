@@ -1,15 +1,17 @@
 package com.ermax.aircond.common.domain;
 
-import java.util.ArrayList;
+
 import java.util.List;
-
-
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -35,12 +37,20 @@ public class UserDetail implements java.io.Serializable {
 	@Column(nullable = false)
 	private String password;	
 	@Type(type = "yes_no")
-	private boolean active = false;	
+	private boolean active = false;
+	private String firstname;
+	private String lastname;
+	private String nickname;
 	private String email;
 	private String phone;
 	
-	@ManyToMany(fetch=FetchType.EAGER)	
-	private List<UserGroup> userGroups = new ArrayList<UserGroup>();
+	@ManyToMany(fetch=FetchType.EAGER,cascade={CascadeType.PERSIST})
+	@JoinTable(
+			name="USERDETAIL_USERGROUP",
+			joinColumns=@JoinColumn(name="USERDETAIL_ID"),
+			inverseJoinColumns=@JoinColumn(name="USERGROUP_ID")
+	)	
+	private List<UserGroup> userGroups;
 	
 
 	public String getUsername() {
@@ -97,6 +107,30 @@ public class UserDetail implements java.io.Serializable {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 

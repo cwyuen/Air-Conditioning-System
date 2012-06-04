@@ -1,10 +1,15 @@
 package com.ermax.aircond.common.domain;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -19,7 +24,9 @@ public class UserGroup implements java.io.Serializable{
 	@Column(name="USERGROUP_ID")
 	private long userGroupId;
 	private String groupName;
-	private String description;	
+	private String description;		
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "userGroups")
+	private List<UserDetail> userDetails;
 		
 	public String getGroupName() {
 		return groupName;
@@ -38,6 +45,12 @@ public class UserGroup implements java.io.Serializable{
 	}
 	public void setUserGroupId(long userGroupId) {
 		this.userGroupId = userGroupId;
+	}
+	public List<UserDetail> getUserDetails() {
+		return userDetails;
+	}
+	public void setUserDetails(List<UserDetail> userDetails) {
+		this.userDetails = userDetails;
 	}	
 	
 	

@@ -5,7 +5,11 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<!--
 	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled" />
+	-->
+	
+	<global-method-security secured-annotations="enabled" />
 
 	<http auto-config="true">
 		<intercept-url pattern="/pages/*" access="ROLE_USER" />		
