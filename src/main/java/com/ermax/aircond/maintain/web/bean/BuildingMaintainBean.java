@@ -3,6 +3,7 @@ package com.ermax.aircond.maintain.web.bean;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.richfaces.component.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class BuildingMaintainBean implements java.io.Serializable{
 		if(buildingList == null){
 			buildingList = maintainService.getAllBuilding();
 		}
-	}
+	}				
 	
 	public void sortByName(){
 		resetOrders();
