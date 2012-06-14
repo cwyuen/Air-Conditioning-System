@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -27,8 +28,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.WebAttributes;
-import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
@@ -36,9 +35,10 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 @Component
 public class LoginBean implements Serializable {
-	private static String SAVED_REQUEST = "WEBATTRIBUTES_SAVED_REQUEST";
+	//private static String SAVED_REQUEST = "WEBATTRIBUTES_SAVED_REQUEST";
 	private static final long serialVersionUID = -5213143571414351589L;
-
+	private static final Logger logger = Logger.getLogger(LoginBean.class);
+	
 	@NotNull
 	@Size(min = 1, max = 20)
 	private String username;
@@ -46,19 +46,29 @@ public class LoginBean implements Serializable {
 	@NotNull
 	@Size(min = 1, max = 20)
 	private String password;
+	
+	private String sessionUser = "";
+	private boolean authenticated = false;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	public String login() throws IOException, ServletException {
 		try {
-			Authentication request = new UsernamePasswordAuthenticationToken(this.username, this.password);
-			Authentication result = authenticationManager.authenticate(request);
+			Authentication request = new UsernamePasswordAuthenticationToken(this.username, this.password);			
+			Authentication result = authenticationManager.authenticate(request);		
 			SecurityContextHolder.getContext().setAuthentication(result);
-		} catch (AuthenticationException e) {
+			authenticated = true;			
+		} catch (AuthenticationException e) {			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage()));
+			authenticated = false;
+			sessionUser = "";
 			return null;
 		}
+		
+		logger.debug("LoginBean - " + authenticated);
+		logger.debug("LoginBean - " + sessionUser);
+		
 				
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();  
 	    HttpServletResponse  response = (HttpServletResponse )FacesContext.getCurrentInstance().getExternalContext().getResponse();  
@@ -72,8 +82,8 @@ public class LoginBean implements Serializable {
 	    	}
 	    }
 	    
-	    FacesContext.getCurrentInstance().responseComplete();  
-	    return null;    					
+	    //FacesContext.getCurrentInstance().responseComplete();  
+	    return "index";    					
 	}
 	
 	public String logout() throws IOException {
@@ -83,7 +93,7 @@ public class LoginBean implements Serializable {
 		context.redirect(context.getRequestContextPath()+ "/j_spring_security_logout");
 		FacesContext.getCurrentInstance().responseComplete();
 		return null;
-	}
+	}	
 
 	public void paint(OutputStream out, Object data) throws IOException {
 		/*
@@ -129,4 +139,21 @@ public class LoginBean implements Serializable {
 		this.password = password;
 	}
 
+	public String getSessionUser() {
+		return sessionUser;
+	}
+
+	public void setSessionUser(String sessionUser) {
+		this.sessionUser = sessionUser;
+	}
+
+	public boolean isAuthenticated() {
+		return authenticated;
+	}
+
+	public void setAuthenticated(boolean authenticated) {
+		this.authenticated = authenticated;
+	}
+	
+	
 }

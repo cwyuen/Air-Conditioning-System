@@ -8,49 +8,60 @@
 
 <body>
 	<ui:composition template="/template/template.xhtml">
-		
+
 		<ui:define name="body">
-		
-			<rich:panel header="Building">				
-			
+
+			<rich:panel header="#{msg['ui.system_maintain']}">
+
 				<h:form>
-					<rich:dataTable value="#{buildingMaintainBean.buildingList}" var="building" id="buildingTable">
-						
-						<rich:column id="building_name" sortBy="#{building.buildingName}" sortOrder="#{buildingMaintainBean.nameOrder}">
+					<rich:extendedDataTable id="buildingTable"
+						value="#{buildingMaintainBean.buildingList}" var="building"
+						frozenColumns="2" selectionMode="single"
+						style="height:600px;width:800px">
+
+						<f:facet name="header">
+							<h:outputText value="#{msg['ui.building_maintain']}" />
+						</f:facet>
+
+						<rich:column id="building_name" sortBy="#{building.buildingName}">
 							<f:facet name="header">
-								<a4j:commandLink value="Building Name" render="buildingTable" action="#{buildingMaintainBean.sortByName}" />								
+								<a4j:commandLink value="Building Name" render="buildingTable"
+									action="#{buildingMaintainBean.sortByName}" />
 							</f:facet>
 							#{building.buildingName}
 						</rich:column>
 						
 						<rich:column>
 							<f:facet name="header">
-								<a4j:commandLink value="Status" render="buildingTable" action="#{buildingMaintainBean.sortByStatus}" />								
+								<a4j:commandLink value="Status" render="buildingTable"
+									action="#{buildingMaintainBean.sortByStatus}" />
 							</f:facet>
 							#{building.status}
 						</rich:column>
-						
+
 						<rich:column>
 							<f:facet name="header">
-								<a4j:commandLink value="Type" render="buildingTable" action="#{buildingMaintainBean.sortByType}" />
+								<a4j:commandLink value="Type" render="buildingTable"
+									action="#{buildingMaintainBean.sortByType}" />
 							</f:facet>
 							#{building.buildingType}
 						</rich:column>
-						
+
 						<rich:column>
 							<f:facet name="header">
-								<a4j:commandLink value="Description" render="buildingTable" action="#{buildingMaintainBean.sortByDesc}" />
+								<a4j:commandLink value="Description" render="buildingTable"
+									action="#{buildingMaintainBean.sortByDesc}" />
 							</f:facet>
 							#{building.description}
 						</rich:column>
-						
-						
-					</rich:dataTable>
-				
+
+					</rich:extendedDataTable>
+
+
 				</h:form>
-				
+
 			</rich:panel>
-			
+
 		</ui:define>
 	</ui:composition>
 </body>

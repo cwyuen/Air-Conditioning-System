@@ -20,7 +20,8 @@
                     login-processing-url='/j_spring_security_check' 
                     authentication-failure-url="//session_exceeded.jsf"/>
                     
-		<logout logout-url="/logout*" logout-success-url="/" />                    		
+		  
+		<logout invalidate-session="true" logout-success-url="/" />                 		
 		
 		<!-- 	
 		<session-management invalid-session-url="/session_exceeded.jsf">

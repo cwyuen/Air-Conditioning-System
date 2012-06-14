@@ -4,18 +4,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<title>#{msg['ui.system_title']}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<h:outputStylesheet name="style.css" library="css" />
 </h:head>
 
-<h:body class="body">
-
-	<f:view locale="#{localeBean.language}">
-
+<f:view locale="#{localeBean.language}">
+	<h:body class="body">	
 		<table class="wrap">
 
 			<TR>
@@ -40,7 +38,9 @@
 				<TD>
 					<table class="menu">
 						<tr>
-							<td><ui:include src="/template/login.xhtml" /></td>
+							<td>															
+								<ui:include src="/template/menu.xhtml" />														
+							</td>
 						</tr>
 					</table>
 				</TD>
@@ -56,8 +56,8 @@
 				</TD>
 			</TR>
 					
-		</table>
-
-	</f:view>
-</h:body>
+		</table>	
+	</h:body>
+</f:view>
+<h:outputStylesheet name="style.ecss" library="css" />
 </html>

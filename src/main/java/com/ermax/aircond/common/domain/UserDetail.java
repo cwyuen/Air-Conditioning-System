@@ -2,7 +2,7 @@ package com.ermax.aircond.common.domain;
 
 
 import java.util.List;
-import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="USERDETAIL", uniqueConstraints = { @UniqueConstraint(columnNames = "USERNAME") })
-public class UserDetail implements java.io.Serializable {
+public class UserDetail extends CommonDomain implements java.io.Serializable {
 	/**
 	 * 
 	 */
