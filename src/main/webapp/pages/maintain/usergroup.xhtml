@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<body>
+	<ui:composition template="/template/template.xhtml">
+
+		<ui:define name="body">
+
+			<rich:panel header="#{msg['ui.system_maintain']}">
+				<table>
+					<tr>
+						<td colspan="2">							
+							<h:form>
+								<h:inputText value="#{userGroupMaintainBean.searchStr}" />
+								&nbps;
+								<a4j:commandButton value="#{msg['ui.search']}" render="usergroupTable" 
+									action="#{userGroupMaintainBean.search}" />
+							</h:form>																									
+						</td>
+					</tr>
+					<tr>
+						<td width="40%">
+							<h:form>
+								<rich:extendedDataTable id="usergroupTable"
+									value="#{userGroupMaintainBean.userGroups}" var="userGroup"
+									frozenColumns="2" selectionMode="single"
+									style="height:400px;width:500px">
+
+									<f:facet name="header">
+										<h:outputText value="#{msg['ui.usergroup_maintain']}" />
+									</f:facet>
+			
+									<rich:column  width="200px">
+										<f:facet name="header">
+											<h:outputText value="#{msg['ui.usergroup_groupname']}" />
+										</f:facet>								
+										#{userGroup.groupName}
+									</rich:column>
+			
+									<rich:column  width="300px">
+										<f:facet name="header">
+											<h:outputText value="#{msg['ui.usergroup_description']}" />
+										</f:facet>
+										#{userGroup.description}
+									</rich:column>
+								</rich:extendedDataTable>
+							</h:form>						
+						</td>											
+						
+						<td width="60%">
+							<h:form>
+								<table>
+									<tr>
+										<td><h:outputText value="#{msg['ui.usergroup_groupname']}" /></td>
+										<td>:</td>
+										<td><h:inputText value="#{userGroupMaintainBean.selectedUserGroup.groupName}" /></td>
+									</tr>
+									<tr>
+										<td><h:outputText value="#{msg['ui.usergroup_description']}" /></td>
+										<td>:</td>
+										<td><h:inputText value="#{userGroupMaintainBean.selectedUserGroup.description}" /></td>
+									</tr>
+									<tr>
+										<td colspan="3">
+											<h:commandButton value="#{msg['ui.create']}" action="#{userGroupMaintainBean.createUserGroup}" />
+											<h:commandButton value="#{msg['ui.cancel']}" onclick="#{rich:component('usergroup_popup')}.hide(); return false;" />
+										</td>
+									</tr>
+								
+								</table>
+							</h:form>
+						</td>
+					</tr>
+				</table>			
+			</rich:panel>
+			
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

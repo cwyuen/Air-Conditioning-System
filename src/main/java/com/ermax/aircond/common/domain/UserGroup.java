@@ -2,6 +2,7 @@ package com.ermax.aircond.common.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,7 @@ public class UserGroup extends CommonDomain implements java.io.Serializable{
 	private long userGroupId;
 	private String groupName;
 	private String description;		
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "userGroups")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "userGroups", cascade={CascadeType.ALL})
 	private List<UserDetail> userDetails;
 		
 	public String getGroupName() {
