@@ -5,15 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("request")
-public class MenuBean implements java.io.Serializable{	
+public class MenuBean {	
 	
-	private static final long serialVersionUID = 1L;
-
-	public String doBuildingMaintain(){
-		return "pages/maintain/building";
-	}
-	
-	public String doUserGroupMaintain(){
-		return "pages/maintain/usergroup";
-	}
 }
