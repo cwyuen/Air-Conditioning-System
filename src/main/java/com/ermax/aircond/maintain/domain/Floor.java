@@ -9,11 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ermax.aircond.common.domain.CommonDomain;
-
 @Entity
 @Table(name="FLOOR")
-public class Floor extends CommonDomain implements java.io.Serializable{
+public class Floor implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
 

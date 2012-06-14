@@ -8,11 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.ermax.aircond.common.domain.CommonDomain;
-
 @Entity
 @Table(name="BUILDING", uniqueConstraints = { @UniqueConstraint(columnNames = "BUILDINGNAME") })
-public class Building extends CommonDomain implements java.io.Serializable {
+public class Building implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
