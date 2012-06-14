@@ -5,28 +5,16 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<!--
 	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled" />
-	-->
-	
-	<global-method-security secured-annotations="enabled" />
 
-	<http auto-config="true" access-denied-page="/session_exceeded.jsf">
-	
-		<intercept-url pattern="/pagesXXXXX/**" access="ROLE_ADMIN,ROLE_USER" />
-		
-		<form-login login-page='/index.jsf' 
-                    default-target-url='/faces/main.jsf'
-                    login-processing-url='/j_spring_security_check' 
-                    authentication-failure-url="//session_exceeded.jsf"/>
-                    
-		<logout logout-url="/logout*" logout-success-url="/" />                    		
-		
-		<!-- 	
-		<session-management invalid-session-url="/session_exceeded.jsf">
+	<http auto-config="true" access-denied-page="/accessDenied.xhtml">
+		<form-login login-page="/index.xhtml" />
+		<intercept-url pattern="/pages/common/**" access="ROLE_USER, ROLE_ADMIN" />
+		<intercept-url pattern="/pages/admin/**" access="ROLE_ADMIN" />
+		<logout logout-success-url="/index.jsf" invalidate-session="true" />		
+		<!-- session-management invalid-session-url="/session_exceeded.jsf">
 			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
-		</session-management>
-		 -->		
+		</session-management-->		
 	</http>
 		
 	<beans:bean id="daoAuthenticationProvider"
@@ -45,7 +33,7 @@
 	
 	<authentication-manager>
 		<authentication-provider user-service-ref="securityUserDetailService">
-			<!-- <password-encoder hash="md5" /> --> 
+			<!--  password-encoder hash="md5" /-->
 		</authentication-provider>
 	</authentication-manager>
 	

@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -26,18 +28,25 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.web.jsf.FacesContextUtils;
+
+import com.ermax.aircond.common.dao.WriteMachineDataDao;
+import com.ermax.aircond.common.domain.WriteMachineData;
 
 @Scope("session")
 @Component
 public class LoginBean implements Serializable {
-	private static String SAVED_REQUEST = "WEBATTRIBUTES_SAVED_REQUEST";
+	//private static String SAVED_REQUEST = "WEBATTRIBUTES_SAVED_REQUEST";
 	private static final long serialVersionUID = -5213143571414351589L;
+	
+	private static final Logger logger = Logger.getLogger(LoginBean.class);
 
 	@NotNull
 	@Size(min = 1, max = 20)
@@ -50,6 +59,9 @@ public class LoginBean implements Serializable {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	//@Autowired
+	//private WriteMachineDataDao writeMachineDataDao;
+	
 	public String login() throws IOException, ServletException {
 		try {
 			Authentication request = new UsernamePasswordAuthenticationToken(this.username, this.password);
@@ -59,23 +71,56 @@ public class LoginBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage()));
 			return null;
 		}
-				
+
+	
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();  
 	    HttpServletResponse  response = (HttpServletResponse )FacesContext.getCurrentInstance().getExternalContext().getResponse();  
 	    HttpSession session = request.getSession(false);
-	    
+
 	    if(session != null){
+	    	logger.debug("Session is not null!");
 	    	ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 	    	SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);  
-	    	if(savedRequest != null){  
+	    	if(savedRequest != null){
+	    		logger.debug("savedRequest is not null!");
+	    		logger.debug(savedRequest.getRedirectUrl());
 	    		context.redirect(savedRequest.getRedirectUrl());
 	    	}
 	    }
+		 
+	    //FacesContext.getCurrentInstance().responseComplete();  
+	    //return null;    
+		
+		
+	    if (isAdmin()) {
+	    	logger.debug("Direct to Admin page");
+	    	
+	    	/*
+			WriteMachineData writeMachineData = new WriteMachineData();
+			writeMachineData.setCmd("12345");
+			writeMachineData.setNid(1);
+			
+			logger.debug("Insert!");
+			writeMachineDataDao.insert(writeMachineData);
+	    	*/
+			
+	    	response.sendRedirect("pages/admin/admin.jsf");
+	    	
+	    } else if (isUser()) {
+	    	logger.debug("Direct to User page");
+	    	response.sendRedirect("pages/common/welcome.jsf");	    	
+	    	
+	    } else {
+	    	logger.debug("Log in Failure!");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login or password incorrect."));		
+			response.sendRedirect("pages/index.jsf");	 
+	    }
+
+	    FacesContext.getCurrentInstance().responseComplete();
+	    return null;
 	    
-	    FacesContext.getCurrentInstance().responseComplete();  
-	    return null;    					
 	}
-	
+
 	public String logout() throws IOException {
 		this.username = "";
 		this.password = "";
@@ -129,4 +174,26 @@ public class LoginBean implements Serializable {
 		this.password = password;
 	}
 
+	protected Authentication getAuthentication() {
+		return SecurityContextHolder.getContext().getAuthentication();		
+	}
+	
+	protected boolean isAdmin() {
+		for (GrantedAuthority authority : getAuthentication().getAuthorities()) {
+			if(authority.getAuthority().equals("ROLE_ADMIN")) {
+				return true;
+			}	
+		}
+		return false;	
+	}
+	
+	protected boolean isUser() {
+		for (GrantedAuthority authority : getAuthentication().getAuthorities()) {
+			if(authority.getAuthority().equals("ROLE_USER")) {
+				return true;
+			}	
+		}
+		return false;	
+	}
+	
 }
