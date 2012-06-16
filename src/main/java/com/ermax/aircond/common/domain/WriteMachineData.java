@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="MData")
-public class WriteMachineData implements Serializable {
+public class WriteMachineData extends CommonDomain implements Serializable {
 
 	/**
 	 * 

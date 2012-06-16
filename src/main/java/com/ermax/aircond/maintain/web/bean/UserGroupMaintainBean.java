@@ -1,33 +1,23 @@
 package com.ermax.aircond.maintain.web.bean;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.ermax.aircond.common.domain.UserDetail;
 import com.ermax.aircond.common.domain.UserGroup;
-<<<<<<< HEAD
-import com.ermax.aircond.common.web.bean.LoginBean;
-=======
 import com.ermax.aircond.maintain.service.MaintainService;
 import com.ermax.aircond.util.web.bean.SortingTableBean;
->>>>>>> origin/master
 
-@Scope("request")
+@Scope("view")
 @Component
 public class UserGroupMaintainBean extends SortingTableBean implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-<<<<<<< HEAD
-	@ManagedProperty(value="#{loginBean}")
-	private LoginBean loginBean;
-	
-	private UserGroup userGroup = new UserGroup();
-	
-	public LoginBean getLoginBean() {
-		return loginBean;
-=======
 
 	@Autowired
 	private MaintainService maintainService;
@@ -51,6 +41,7 @@ public class UserGroupMaintainBean extends SortingTableBean implements java.io.S
 	public String createUserGroup() {
 		maintainService.createUserGroup(selectedUserGroup, sessionUser);
 		userGroups = maintainService.getAllUserGroups();
+		selectedUserGroup = new UserGroup();
 		return null;
 	}
 
@@ -68,20 +59,20 @@ public class UserGroupMaintainBean extends SortingTableBean implements java.io.S
 
 	public void setUserGroups(List<UserGroup> userGroups) {
 		this.userGroups = userGroups;
->>>>>>> origin/master
-	}
-	public void setLoginBean(LoginBean loginBean) {
-		this.loginBean = loginBean;
-	}
-	public UserGroup getUserGroup() {
-		return userGroup;
-	}
-	public void setUserGroup(UserGroup userGroup) {
-		this.userGroup = userGroup;
 	}
 
-<<<<<<< HEAD
-=======
+	public UserGroup getSelectedUserGroup() {
+		return selectedUserGroup;
+	}
+
+	public void setSelectedUserGroup(UserGroup selectedUserGroup) {
+		this.selectedUserGroup = selectedUserGroup;
+	}
+
+	public String getSearchStr() {
+		return searchStr;
+	}
+
 	public void setSearchStr(String searchStr) {
 		this.searchStr = searchStr;
 	}
@@ -94,5 +85,4 @@ public class UserGroupMaintainBean extends SortingTableBean implements java.io.S
 		this.action = action;
 	}
 
->>>>>>> origin/master
 }

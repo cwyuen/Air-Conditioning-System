@@ -27,13 +27,13 @@
 								<rich:extendedDataTable id="usergroupTable"
 									value="#{userGroupMaintainBean.userGroups}" var="userGroup"
 									frozenColumns="2" selectionMode="single"
-									style="height:400px;width:1000px">
+									style="height:400px;width:700px">
 
 									<f:facet name="header">
 										<h:outputText value="#{msg['ui.usergroup_maintain']}" />
 									</f:facet>
 
-									<rich:column width="500px"
+									<rich:column width="350px"
 										filterBy="#{userGroup.groupName}" 
 										sortBy="#{userGroup.groupName}"
 										sortOrder="#{userGroupMaintainBean.sortsOrders['usergroup_groupName']}">
@@ -52,7 +52,7 @@
 										#{userGroup.groupName}
 									</rich:column>
 									
-									<rich:column width="500px"
+									<rich:column width="350px"
 										filterBy="#{userGroup.description}" 
 										sortBy="#{userGroup.description}"
 										sortOrder="#{userGroupMaintainBean.sortsOrders['usergroup_description']}">
@@ -74,7 +74,7 @@
 								</rich:extendedDataTable>
 							</h:form></td>
 
-						<td width="60%"><h:form>
+						<td><h:form>
 								<table>
 									<tr>
 										<td><h:outputText

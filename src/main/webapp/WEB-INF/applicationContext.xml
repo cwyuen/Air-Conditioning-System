@@ -21,12 +21,13 @@
 
 	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-		<property name="jdbcUrl" value="jdbc:sqlserver://192.168.43.8:1433;databaseName=aircond" />
-		<property name="user" value="aircond" />
+		<property name="jdbcUrl" value="jdbc:sqlserver://127.0.0.1:1433;databaseName=aircond" />
+		<property name="user" value="aircond" />				 
 		<property name="password" value="password" />
-		<property name="maxPoolSize" value="10" />
+		<property name="initialPoolSize" value="1"/>
+		<property name="maxPoolSize" value="1" />
 		<property name="maxStatements" value="0" />
-		<property name="minPoolSize" value="5" />
+		<property name="minPoolSize" value="1" />
 	</bean>
 	<!-- 
 	<bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

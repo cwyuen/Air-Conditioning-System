@@ -11,9 +11,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.ermax.aircond.common.domain.CommonDomain;
+
 @Entity
 @Table(name="MACHINE")
-public class Machine implements java.io.Serializable {
+public class Machine extends CommonDomain implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
