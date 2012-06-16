@@ -14,71 +14,97 @@
 			<rich:panel header="#{msg['ui.system_maintain']}">
 				<table>
 					<tr>
-						<td colspan="2">							
-							<h:form>
+						<td colspan="2"><h:form>
 								<h:inputText value="#{userGroupMaintainBean.searchStr}" />
 								&nbps;
-								<a4j:commandButton value="#{msg['ui.search']}" render="usergroupTable" 
+								<a4j:commandButton value="#{msg['ui.search']}"
+									render="usergroupTable"
 									action="#{userGroupMaintainBean.search}" />
-							</h:form>																									
-						</td>
+							</h:form></td>
 					</tr>
-					<tr>
-						<td width="40%">
-							<h:form>
+					<tr valign="top">
+						<td><h:form>
 								<rich:extendedDataTable id="usergroupTable"
 									value="#{userGroupMaintainBean.userGroups}" var="userGroup"
 									frozenColumns="2" selectionMode="single"
-									style="height:400px;width:500px">
+									style="height:400px;width:1000px">
 
 									<f:facet name="header">
 										<h:outputText value="#{msg['ui.usergroup_maintain']}" />
 									</f:facet>
-			
-									<rich:column  width="200px">
+
+									<rich:column width="500px"
+										filterBy="#{userGroup.groupName}" 
+										sortBy="#{userGroup.groupName}"
+										sortOrder="#{userGroupMaintainBean.sortsOrders['usergroup_groupName']}">
 										<f:facet name="header">
-											<h:outputText value="#{msg['ui.usergroup_groupname']}" />
+											<h:panelGrid columns="2">
+												<a4j:commandLink execute="@this" value="#{msg['ui.usergroup_groupname']}"
+													render="usergroupTable" action="#{userGroupMaintainBean.sort}">
+													<f:param name="sortProperty" value="usergroup_groupName" />
+												</a4j:commandLink>
+												<h:graphicImage value="/images/icons/down_icon.gif"
+													rendered="#{userGroupMaintainBean.sortsOrders['usergroup_groupName']=='descending'}" />
+												<h:graphicImage value="/images/icons/up_icon.gif.gif"
+													rendered="#{userGroupMaintainBean.sortsOrders['usergroup_groupName']=='ascending'}" />
+											</h:panelGrid>
 										</f:facet>								
 										#{userGroup.groupName}
 									</rich:column>
-			
-									<rich:column  width="300px">
+									
+									<rich:column width="500px"
+										filterBy="#{userGroup.description}" 
+										sortBy="#{userGroup.description}"
+										sortOrder="#{userGroupMaintainBean.sortsOrders['usergroup_description']}">
 										<f:facet name="header">
-											<h:outputText value="#{msg['ui.usergroup_description']}" />
-										</f:facet>
+											<h:panelGrid columns="2">
+												<a4j:commandLink execute="@this" value="#{msg['ui.usergroup_description']}"
+													render="usergroupTable" action="#{userGroupMaintainBean.sort}">
+													<f:param name="sortProperty" value="usergroup_description" />
+												</a4j:commandLink>
+												<h:graphicImage value="/images/icons/down_icon.gif"
+													rendered="#{userGroupMaintainBean.sortsOrders['usergroup_description']=='descending'}" />
+												<h:graphicImage value="/images/icons/up_icon.gif.gif"
+													rendered="#{userGroupMaintainBean.sortsOrders['usergroup_description']=='ascending'}" />
+											</h:panelGrid>
+										</f:facet>								
 										#{userGroup.description}
 									</rich:column>
+
 								</rich:extendedDataTable>
-							</h:form>						
-						</td>											
-						
-						<td width="60%" valign="top">
-							<h:form>
+							</h:form></td>
+
+						<td width="60%"><h:form>
 								<table>
 									<tr>
-										<td><h:outputText value="#{msg['ui.usergroup_groupname']}" /></td>
+										<td><h:outputText
+												value="#{msg['ui.usergroup_groupname']}" /></td>
 										<td>:</td>
-										<td><h:inputText value="#{userGroupMaintainBean.selectedUserGroup.groupName}" /></td>
+										<td><h:inputText
+												value="#{userGroupMaintainBean.selectedUserGroup.groupName}" /></td>
 									</tr>
 									<tr>
-										<td><h:outputText value="#{msg['ui.usergroup_description']}" /></td>
+										<td><h:outputText
+												value="#{msg['ui.usergroup_description']}" /></td>
 										<td>:</td>
-										<td><h:inputText value="#{userGroupMaintainBean.selectedUserGroup.description}" /></td>
+										<td><h:inputText
+												value="#{userGroupMaintainBean.selectedUserGroup.description}" /></td>
 									</tr>
 									<tr>
-										<td colspan="3">
-											<h:commandButton value="#{msg['ui.create']}" action="#{userGroupMaintainBean.createUserGroup}" />
-											<h:commandButton value="#{msg['ui.cancel']}" onclick="#{rich:component('usergroup_popup')}.hide(); return false;" />
+										<td colspan="3"><h:commandButton
+												value="#{msg['ui.create']}"
+												action="#{userGroupMaintainBean.createUserGroup}" /> <h:commandButton
+												value="#{msg['ui.cancel']}"
+												onclick="#{rich:component('usergroup_popup')}.hide(); return false;" />
 										</td>
 									</tr>
-								
+
 								</table>
-							</h:form>
-						</td>
+							</h:form></td>
 					</tr>
-				</table>			
+				</table>
 			</rich:panel>
-			
+
 		</ui:define>
 	</ui:composition>
 </body>

@@ -1,14 +1,11 @@
 package com.ermax.aircond.common.web.bean;
 
 import java.io.Serializable;
-import java.net.CookieStore;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.servlet.http.Cookie;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

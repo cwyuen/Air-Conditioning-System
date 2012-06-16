@@ -7,13 +7,19 @@ import org.springframework.stereotype.Component;
 
 import com.ermax.aircond.common.domain.UserDetail;
 import com.ermax.aircond.common.domain.UserGroup;
+<<<<<<< HEAD
 import com.ermax.aircond.common.web.bean.LoginBean;
+=======
+import com.ermax.aircond.maintain.service.MaintainService;
+import com.ermax.aircond.util.web.bean.SortingTableBean;
+>>>>>>> origin/master
 
 @Scope("request")
 @Component
-public class UserGroupMaintainBean implements java.io.Serializable{
+public class UserGroupMaintainBean extends SortingTableBean implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 	@ManagedProperty(value="#{loginBean}")
 	private LoginBean loginBean;
 	
@@ -21,6 +27,48 @@ public class UserGroupMaintainBean implements java.io.Serializable{
 	
 	public LoginBean getLoginBean() {
 		return loginBean;
+=======
+
+	@Autowired
+	private MaintainService maintainService;
+	@ManagedProperty(value = "#{loginBean.sessionUser}")
+	private String sessionUser;
+
+	private List<UserGroup> userGroups;
+	private UserGroup selectedUserGroup = new UserGroup();
+	private String searchStr = "";
+	private String action = "";
+
+	@PostConstruct
+	public void init() {
+		userGroups = maintainService.getAllUserGroups();
+	}
+
+	public void search() {
+		userGroups = maintainService.getUserGroups(searchStr);
+	}
+
+	public String createUserGroup() {
+		maintainService.createUserGroup(selectedUserGroup, sessionUser);
+		userGroups = maintainService.getAllUserGroups();
+		return null;
+	}
+
+	public String getSessionUser() {
+		return sessionUser;
+	}
+
+	public void setSessionUser(String sessionUser) {
+		this.sessionUser = sessionUser;
+	}
+
+	public List<UserGroup> getUserGroups() {
+		return userGroups;
+	}
+
+	public void setUserGroups(List<UserGroup> userGroups) {
+		this.userGroups = userGroups;
+>>>>>>> origin/master
 	}
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
@@ -32,4 +80,19 @@ public class UserGroupMaintainBean implements java.io.Serializable{
 		this.userGroup = userGroup;
 	}
 
+<<<<<<< HEAD
+=======
+	public void setSearchStr(String searchStr) {
+		this.searchStr = searchStr;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+>>>>>>> origin/master
 }
