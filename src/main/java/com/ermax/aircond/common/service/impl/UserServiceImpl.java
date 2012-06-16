@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,9 @@ import com.ermax.aircond.common.service.UserService;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 	
-	@Resource
+	@Autowired
 	private UserDetailDao userDetailDao;
-	@Resource
+	@Autowired
 	private UserGroupDao userGroupDao;
 
 	@Override

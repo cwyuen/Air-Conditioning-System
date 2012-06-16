@@ -17,15 +17,17 @@
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuItem submitMode="client"
-                    onclick="document.location.href='../pages/maintain/usergroup.jsf'">
+                    onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/maintain/usergroup.jsf'">
                     <h:outputText value="#{msg['ui.usergroup_maintain']}" />
                 </rich:menuItem>
-				<rich:menuItem label="#{msg['ui.usergroup_maintain']}" action="#{menuBean.doUserGroupMaintain}" />				
-				<rich:menuItem label="#{msg['ui.building_maintain']}" action="#{menuBean.doBuildingMaintain}" />
+                <rich:menuItem submitMode="client"
+                    onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/maintain/building.jsf'">
+                    <h:outputText value="#{msg['ui.building_maintain']}" />
+                </rich:menuItem>
+               
 				
 			</rich:dropDownMenu>
 		</rich:toolbar>
-		#{loginBean.sessionUser}
 		<h:outputLink value="j_spring_security_logout">logout</h:outputLink>
 	</h:form>
 </ui:component>
