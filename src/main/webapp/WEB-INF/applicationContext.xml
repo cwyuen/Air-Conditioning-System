@@ -67,6 +67,17 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
+	<bean
+		class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="view">
+					<bean class="com.ermax.aircond.util.web.scope.ViewScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 

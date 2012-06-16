@@ -11,34 +11,35 @@ import org.springframework.stereotype.Component;
 
 import com.ermax.aircond.common.domain.UserGroup;
 import com.ermax.aircond.maintain.service.MaintainService;
+import com.ermax.aircond.util.web.bean.SortingTableBean;
 
 @Scope("request")
 @Component
-public class UserGroupMaintainBean implements java.io.Serializable{
+public class UserGroupMaintainBean extends SortingTableBean implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Autowired
 	private MaintainService maintainService;
-	@ManagedProperty(value="#{loginBean.sessionUser}")
+	@ManagedProperty(value = "#{loginBean.sessionUser}")
 	private String sessionUser;
-	
+
 	private List<UserGroup> userGroups;
 	private UserGroup selectedUserGroup = new UserGroup();
 	private String searchStr = "";
 	private String action = "";
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		userGroups = maintainService.getAllUserGroups();
 	}
-	
-	public void search(){
+
+	public void search() {
 		userGroups = maintainService.getUserGroups(searchStr);
 	}
-	
-	public String createUserGroup(){	
-		maintainService.createUserGroup(selectedUserGroup,sessionUser);
+
+	public String createUserGroup() {
+		maintainService.createUserGroup(selectedUserGroup, sessionUser);
 		userGroups = maintainService.getAllUserGroups();
 		return null;
 	}
@@ -82,5 +83,5 @@ public class UserGroupMaintainBean implements java.io.Serializable{
 	public void setAction(String action) {
 		this.action = action;
 	}
-		
+
 }

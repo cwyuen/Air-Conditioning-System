@@ -19,7 +19,6 @@ public abstract class AbstractDao implements Serializable {
 	 */
 	private static final long	serialVersionUID	= -4372485078361060458L;
 
-	@SuppressWarnings("unused")
 	@Autowired
 	private SessionFactory sessionFactory;
 

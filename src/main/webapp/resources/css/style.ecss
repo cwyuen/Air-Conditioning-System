@@ -62,14 +62,12 @@
 
 .rf-p-hdr {
 	font-size: 22px;
-	color: #FFFFFF;
 	font-family: Arial, Verdana, sans-serif;
 	padding: 10px;
 }
 
 .rf-p-b {
 	font-size: 18px;
-	color: #FFFFFF;
 	font-family: Arial, Verdana, sans-serif;
 	padding: 10px;
 }

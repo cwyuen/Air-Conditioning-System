@@ -51,6 +51,7 @@ public class UserDetailDaoImpl extends AbstractHibernateDaoImpl<UserDetail> impl
 		criteria.add(Restrictions.like("email", key));
 		criteria.add(Restrictions.like("phone", key));
 		
+		@SuppressWarnings("unchecked")
 		List<UserDetail> results = criteria.list();		
 		return results;
 	}
